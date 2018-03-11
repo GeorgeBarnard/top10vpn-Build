@@ -12,7 +12,6 @@ export default class MakeCall extends Component {
   }
 
   render() {
-    console.log(this.props.active)
     return (
       <StyOuter>
         <ResultsButton onClick={() => this.makeCall()}>View Results V</ResultsButton>

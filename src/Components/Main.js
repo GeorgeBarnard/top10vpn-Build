@@ -77,6 +77,7 @@ export default class Main extends Component {
        self.props.openSort();
      })
     .catch(function (error) {
+       alert('Api Call Error: Please try again shortly')
        console.log('Call Error: ', error);
        self.setState({
          loading: false
@@ -135,18 +136,35 @@ export default class Main extends Component {
   };
 }
 
+testPeriodSwitch = (val) => {
+  var test = val
+  var testPeriod
+  test && test === '0' ?
+  testPeriod = ' right now'
+  : test && test === '7' ?
+  testPeriod = ' last 7 days'
+  : test && test === '14' ?
+  testPeriod = ' last 14 days'
+  :
+  (testPeriod = '',
+  console.log('Error: invalid test period'))
+  return testPeriod;
+}
+
 
   render() {
-    // Set Button active state depending on the current values in state
-    // var state = this.state
-    // var active
-    // state.currentLocation && state.currentDestination && state.currentTestPeriod ?
-    // active = false :
-    // active = true
+    var testPeriodDisplay = this.testPeriodSwitch(this.state.currentTestPeriod)
+
     return (
       <StyMain>
-        <p>VPN Speed Test</p>
-        <Destination toggled={this.state.searchToggled}>{this.state.currentLocationName ? this.state.currentLocationName : ''} - {this.state.currentDestinationName ? this.state.currentDestinationName : ''}</Destination>
+        <StyTitle>VPN Speed Test</StyTitle>
+        <Destination
+          toggled={this.state.searchToggled}>{this.state.currentLocationName ? this.state.currentLocationName : ''}
+           -
+           {this.state.currentDestinationName ? this.state.currentDestinationName : ''}
+           ,
+           {testPeriodDisplay}
+         </Destination>
         <SelectSection toggled={this.state.searchToggled}>
           <LocationSelect
             updateLocation={(val, name) => this.updateLocation(val, 1)}
@@ -175,15 +193,26 @@ export default class Main extends Component {
 
 const StyMain = styled.section`
   width: 100%;
-  background-color: rgb(184, 142, 222);
+  background-color: white;
   overflow-x: hidden;
-  padding: 10px;
+  padding: 0 10px;
   box-sizing: border-box;
+`
+const StyTitle = styled.h1`
+  margin: 25px 0 0;
+  font-family: "Calibre-medium", Fallback, sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  color: #424242;
 `
 const Destination = styled.section`
   transform: translateX(${props => props.toggled ? '0' : '-110%'});
   transition: 0.5s ease-in;
   transition-delay: 0.3s;
+  font-family: "Calibre-medium", Fallback, sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: #424242;
 `
 const SelectSection = styled.section`
   overflow: hidden;

@@ -77,6 +77,7 @@ export default SortBy;
 
 const StyOuter = styled.section`
   width: 375px;
+  margin: 0 auto;
   height: 66px;
   position: fixed;
   z-index: 10;
@@ -87,6 +88,9 @@ const StyOuter = styled.section`
   background-color: orange;
   padding: 10px 0;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 const Options = styled.section`
   width: 375px;
@@ -97,4 +101,7 @@ const Options = styled.section`
   transform: translateY(${props => props.toggled ? '0' : '200px'});
   transition: 0.2s ease-in;
   background-color: green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
