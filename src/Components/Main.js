@@ -73,9 +73,10 @@ export default class Main extends Component {
        self.setState({
          loading: false
        })
+       self.props.openSort();
      })
     .catch(function (error) {
-       console.log(error);
+       console.log('Call Error: ', error);
        self.setState({
          loading: false
        })

@@ -5,21 +5,20 @@ import styled from 'styled-components'
 import Header from './Header'
 import Main from './Main'
 import Notify from './Notify'
+import SortBy from './SortBy'
 
 export default class App extends Component {
-
-  // notify(val){
-  //   this.setState({
-  //
-  //   })
-  // }
 
   render() {
     return (
       <StyOuter>
         <Header />
-        <Main notify={(val) => this.notification.trigger(val)} />
+        <Main
+          openSort={() => this.sortBy.showSort()}
+          notify={(val) => this.notification.trigger(val)}
+        />
         <Notify ref={(instance) => { this.notification = instance; }}/>
+        <SortBy ref={(instance) => { this.sortBy = instance; }} />
       </StyOuter>
     );
   }
