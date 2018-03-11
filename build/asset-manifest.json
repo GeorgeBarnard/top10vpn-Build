@@ -1,6 +1,14 @@
 {
   "main.css": "static/css/main.034761d4.css",
   "main.css.map": "static/css/main.034761d4.css.map",
-  "main.js": "static/js/main.1b02ef3c.js",
-  "main.js.map": "static/js/main.1b02ef3c.js.map"
+  "main.js": "static/js/main.030db140.js",
+  "main.js.map": "static/js/main.030db140.js.map",
+  "static/media/Express.png": "static/media/Express.aced94ef.png",
+  "static/media/downArrow.svg": "static/media/downArrow.4416655e.svg",
+  "static/media/hidemyass.png": "static/media/hidemyass.f1fe4cb8.png",
+  "static/media/info-icon.svg": "static/media/info-icon.9fb4400f.svg",
+  "static/media/ipvanish.png": "static/media/ipvanish.0cd58836.png",
+  "static/media/load.gif": "static/media/load.ecd6bc09.gif",
+  "static/media/logo.png": "static/media/logo.dc8fb405.png",
+  "static/media/purevpn.png": "static/media/purevpn.0cae3ae2.png"
 }

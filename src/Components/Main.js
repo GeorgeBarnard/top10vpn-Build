@@ -15,9 +15,9 @@ export default class Main extends Component {
       super(props);
       this.state = {
         currentLocation: 'fra',
-        currentLocationName: '',
+        currentLocationName: 'Paris',
         currentDestination: 'fra',
-        currentDestinationName: '',
+        currentDestinationName: 'Paris',
         currentTestPeriod: '0',
         response: '',
         searchToggled: false
