@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 export default class LocationDropdown extends Component {
 
   onChange(event){
-    console.log(this.selectInput.value)
     event ?
     this.props.update(event.target.value) :
     console.log('Error: Invalid location selected')
@@ -22,7 +21,6 @@ export default class LocationDropdown extends Component {
     return (
       <div>
         <select
-           ref={(select) => { this.selectInput = select; }}
            onChange={(e) => this.onChange(e)}>
           <option value="" defaultValue disabled hidden>Choose here</option>
           {chooselocations}

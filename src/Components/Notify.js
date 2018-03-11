@@ -21,7 +21,7 @@ export default class Notify extends Component {
       self.setState({
         active: false
       })
-    }, 5000))
+    }, 2000))
     :
     console.log('Error: invalid notification message')
   }
@@ -38,6 +38,7 @@ export default class Notify extends Component {
 
 const StyNotification = styled.section`
   position: fixed;
+  z-index: 20;
   bottom: 0;
   transform: translateY(${props => props.active ? '0' : '200px'});
   transition: 0.5s ease-in;

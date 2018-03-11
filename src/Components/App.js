@@ -14,11 +14,17 @@ export default class App extends Component {
       <StyOuter>
         <Header />
         <Main
+          ref={(instance) => { this.main = instance; }}
           openSort={() => this.sortBy.showSort()}
           notify={(val) => this.notification.trigger(val)}
         />
-        <Notify ref={(instance) => { this.notification = instance; }}/>
-        <SortBy ref={(instance) => { this.sortBy = instance; }} />
+        <Notify
+          ref={(instance) => { this.notification = instance; }}
+        />
+        <SortBy
+          ref={(instance) => { this.sortBy = instance; }}
+          sortBy={(type) => this.main.sortBy(type)}
+        />
       </StyOuter>
     );
   }

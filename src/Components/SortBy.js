@@ -32,6 +32,13 @@ class SortBy extends Component {
     })
   }
 
+  sortBy(type){
+    this.props.sortBy(type)
+    this.setState({
+      toggled: false
+    })
+  }
+
   render() {
     var selectedOptions
     const newSwitch = (type) => ({
@@ -43,16 +50,15 @@ class SortBy extends Component {
         ,
       2:
         (<section>
-          <button>dlSpeed</button>
-          <button>Ping</button>
+          <button onClick={() => this.sortBy(1)}>dlSpeed</button>
+          <button onClick={() => this.sortBy(2)}>Ping</button>
         </section>)
     })[type]
 
     this.state.type ?
     (selectedOptions = newSwitch(this.state.type),
     console.log('selected'))
-    :
-    console.log('Error: Invalid type selection')
+    : ''
 
     return (
       <StyOuter showSort={this.state.showSort}>

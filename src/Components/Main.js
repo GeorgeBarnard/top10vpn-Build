@@ -25,6 +25,7 @@ export default class Main extends Component {
 
   updateLocation(val, type){
     var newval = JSON.parse(val)
+    // TODO: Change this to Es6 switch
     switch(type){
       case 1:
         newval ?
@@ -69,7 +70,7 @@ export default class Main extends Component {
      .then(function (response) {
        console.log(response);
        Object.values(response.data).forEach(function(obj) { obj.testPeriod = self.state.currentTestPeriod; });
-       self.setState({response: response.data})
+       self.setState({response: Object.values(response.data)})
        self.setState({
          loading: false
        })
@@ -87,6 +88,52 @@ export default class Main extends Component {
       searchToggled: false
     })
   }
+
+  sortBy = (sortType) => {
+    var sortedResponse
+    sortType && sortType === 1 ?
+     (
+      sortedResponse = this.state.response,
+      this.setState({
+        response: Object.values(sortedResponse).sort(this.compareValues('dlMbps', 'desc'))
+      }),
+      console.log(this.state.response)
+    )
+    : sortType && sortType === 2 ?
+    (
+     sortedResponse = this.state.response,
+     this.setState({
+       response: Object.values(sortedResponse).sort(this.compareValues('pingAvg', 'desc'))
+     }),
+     console.log(this.state.response)
+   )
+    :
+    console.log('Error: Invalid sort selection')
+  }
+
+  compareValues = (key, order='asc') => {
+  return function(a, b) {
+    if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+      // property doesn't exist on either object
+        return 0;
+    }
+
+    const varA = (typeof a[key] === 'string') ?
+      a[key].toUpperCase() : a[key];
+    const varB = (typeof b[key] === 'string') ?
+      b[key].toUpperCase() : b[key];
+
+    let comparison = 0;
+    if (varA > varB) {
+      comparison = 1;
+    } else if (varA < varB) {
+      comparison = -1;
+    }
+    return (
+      (order == 'desc') ? (comparison * -1) : comparison
+    );
+  };
+}
 
 
   render() {

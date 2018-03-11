@@ -5,15 +5,13 @@ export default class TestPeriod extends Component {
 
   selectValue(val){
     val ?
-    (console.log(val, ' days selected'),
-    this.props.updateTestPeriod(val))
+    this.props.updateTestPeriod(val)
     :
     console.log('Error: Invalid time period')
   }
 
   render() {
     var current = this.props.currentTestPeriod
-    console.log(current)
     return (
       <Outer>
         <Button active={current === '0' ? true : false} onClick={() => this.selectValue('0')}>Right Now</Button>
