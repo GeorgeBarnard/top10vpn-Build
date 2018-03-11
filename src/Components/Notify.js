@@ -26,10 +26,25 @@ export default class Notify extends Component {
     console.log('Error: invalid notification message')
   }
 
+  messageSwitch = (val) => {
+    var message
+    val && val === 'Dld' ?
+    message = <p>Download speed:<br />Average download speeds recorded in our tests</p>
+    : val && val === 'Png' ?
+    message = <p>Ping speed:<br />Average Ping speed recorded in our tests</p>
+    :
+    (message = '',
+     console.log('Error: invalid notifiction value')
+    )
+
+    return message;
+  }
+
   render() {
+
     return (
       <StyNotification active={this.state.active != null ? this.state.active : false}>
-        Hello
+        {this.state.message ? this.messageSwitch(this.state.message) : ''}
       </StyNotification>
     );
   }
@@ -43,7 +58,15 @@ const StyNotification = styled.section`
   transform: translateY(${props => props.active ? '0' : '200px'});
   transition: 0.5s ease-in;
   width: 375px;
-  background-color: green;
-  padding: 20px;
+  height: 66px;
+  background-color: #E6F5FC;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  box-sizing: border-box;
+  p{
+    font-family: "Calibre-medium", Fallback, sans-serif;
+    font-size: 13px;
+  }
 `

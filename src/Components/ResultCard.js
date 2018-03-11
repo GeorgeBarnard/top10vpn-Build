@@ -3,6 +3,11 @@ import styled from 'styled-components'
 import '../App.css'
 
 import Nord from '../img/NordLogo.png'
+import Express from '../img/Express.png'
+import HideMyAss from '../img/hidemyass.png'
+import IPVanish from '../img/ipvanish.png'
+import PureVPN from '../img/purevpn.png'
+
 import Info from '../img/info-icon.svg'
 
 class ResultCard extends Component {
@@ -10,10 +15,10 @@ class ResultCard extends Component {
   notify(type){
     switch(type){
       case 1:
-        this.props.notify('First Notify Message lol')
+        this.props.notify('Dld')
       break;
       case 2:
-        this.props.notify('Second Notify Message lol')
+        this.props.notify('Png')
       break;
       default:
       console.log('Error: Invalid notifiction selection')
@@ -39,6 +44,51 @@ class ResultCard extends Component {
       return timePeriod
   }
 
+  testDate = (values) => {
+
+    var testDate
+    var date = new Date();
+    var current = new Date(date.getTime());
+    var currentDay = current.getDate();
+    var currentMonth= current.getMonth() +1;
+    var currentYear= current.getFullYear();
+
+    var last = new Date(date.getTime() - (values * 24 * 60 * 60 * 1000));
+    var day =last.getDate();
+    var month=last.getMonth() +1;
+    var year=last.getFullYear();
+
+    var currentDate = currentDay + '.' + currentMonth + '.' + currentYear
+    var passedDate = day + '.' + month + '.' + year
+
+      values === '0' ?
+      testDate = currentDate
+      : values >= 1 ?
+      testDate = passedDate + ' - ' + currentDate
+      : testDate = ''
+
+      return testDate
+  }
+
+  imageSwitch = (val) => {
+    var img
+
+    val && val === 'ExpressVPN' ?
+    img = Express :
+    val && val === 'NordVPN' ?
+    img = Nord :
+    val && val === 'IPVanish' ?
+    img = IPVanish :
+    val && val === 'PureVPN' ?
+    img = PureVPN :
+    val && val === 'HideMyAss' ?
+    img = HideMyAss :
+    (img = '',
+    console.log('Error: invalid image source'))
+
+    return img;
+  }
+
   render() {
     var values
 
@@ -51,13 +101,13 @@ class ResultCard extends Component {
     return (
       <StyCard className='animated slideInUp'>
         <StyTopSection>
-          <img src={Nord}></img>
+          <img src={values ? this.imageSwitch(values.displayName) : ''}></img>
           <p>{values ? values.displayName : ''}</p>
         </StyTopSection>
         <StyBottomSection>
           <StyBottomInner>
             <p className='inner-title'>Period</p>
-            <p className='inner-content'>{values ? this.testPeriod(values.testPeriod) : ''}<br />{values ? values.testPeriod : ''}</p>
+            <p className='inner-content date'>{values ? this.testPeriod(values.testPeriod) : ''}<br /><span>{values ? this.testDate(values.testPeriod) : ''}</span></p>
           </StyBottomInner>
           <StyBottomInner>
             <p className='inner-title'>Download<br />Speed<NotifyButton onClick={() => this.notify(1)}><img src={Info}></img></NotifyButton></p>
@@ -128,9 +178,9 @@ const StyBottomInner = styled.section`
   }
   .inner-title{
     color: #6E6E6E;
-    font-family: "Calibre-light", Fallback, sans-serif;
+    font-family: "Calibre-medium", Fallback, sans-serif;
     margin: 10px 0 0 10px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 300;
     button{
       margin-left: 2.5px;
@@ -158,6 +208,13 @@ const StyBottomInner = styled.section`
     font-size: 20px;
     span{
       font-size: 14px;
+    }
+  }
+  .date{
+    font-family: "Calibre-medium", Fallback, sans-serif;
+    font-size: 14px;
+    span{
+      font-size: 12px;
     }
   }
 `

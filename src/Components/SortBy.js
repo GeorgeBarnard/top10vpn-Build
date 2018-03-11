@@ -65,8 +65,8 @@ class SortBy extends Component {
         <Options toggled={this.state.toggled}>
           {selectedOptions}
         </Options>
-        <button onClick={() => this.open(1)}>Filter By</button>
-        <button onClick={() => this.open(2)}>Sort By</button>
+        <StySortButton onClick={() => this.open(1)}>Filter By</StySortButton>
+        <StySortButton onClick={() => this.open(2)}>Sort By</StySortButton>
       </StyOuter>
     );
   }
@@ -85,12 +85,13 @@ const StyOuter = styled.section`
   transform: translateY(${props => props.showSort ? '0' : '100px'});
   transition: 0.2s ease-in;
   transition-delay: 1.1s;
-  background-color: orange;
+  background-color: white;
   padding: 10px 0;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 -6px 14px -6px rgba(0, 0, 0, 0.2);
 `
 const Options = styled.section`
   width: 375px;
@@ -104,4 +105,12 @@ const Options = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
+`
+const StySortButton = styled.button`
+  width: 105px;
+  height: 40px;
+  background-color: #D8D8D8;
+  border: none;
+  border-radius: 2.5px;
+  margin: 5px;
 `
