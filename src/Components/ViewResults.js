@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 // Import components
 import ResultCard from './ResultCard'
+import LoadingGif from '../img/load.gif'
 
 
 class ViewResults extends Component {
@@ -11,8 +12,9 @@ class ViewResults extends Component {
     // Loading functionality
     var loading
     var results
+    var self = this
     this.props.loading ?
-     loading = <Loading>Loading</Loading>
+        loading = <Loading src={LoadingGif} alt='Loading'></Loading>
      :
      loading = ''
      // Display Cards
@@ -44,17 +46,15 @@ class ViewResults extends Component {
 export default ViewResults;
 
 const StyOuter = styled.section`
-  background-color: rgb(102, 226, 153);
   padding: 10px 0;
   &:nth-child(1){
-    animation-delay: 0.1s
+    animation-delay: 0s
   }
   &:nth-child(2){
-    animation-delay: 0.3s
+    animation-delay: 0.1s
   }
 `
-const Loading = styled.section`
-  height: 30px;
-  margin: 30px auto;
-  background-color: red;
+const Loading = styled.img`
+  width: 200px;
+  margin: 50px calc(50% - 100px);
 `

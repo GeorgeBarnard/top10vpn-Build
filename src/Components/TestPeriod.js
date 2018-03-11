@@ -28,11 +28,15 @@ const Outer = styled.section`
   margin: 15px auto;
   display: flex;
   flex-wrap: wrap;
+  border: 1px solid #D1D1D1;
 `
 const Button = styled.section`
   width: 33.3333%;
   height: 40px;
-  background-color: ${props => props.active ? 'rgb(130, 130, 130)' : 'white'};
+  background-color: ${props => props.active ? '#E6F5FC' : 'white'};
+  font-family: "Calibre-light", Fallback, sans-serif;
+  font-weight: 300;
+  font-size: 18px;
   display: flex;
   justify-content: center;
   align-items: center;

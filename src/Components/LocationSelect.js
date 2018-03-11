@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LocationDropdown from './LocationDropdown'
+import styled from 'styled-components'
 
 
 const locations =[
@@ -29,7 +30,7 @@ const locations =[
     code: 'sgp'
   },
   {
-    name: 'Sydney, Austrailia',
+    name: 'Sydney, Australia',
     shortName: 'Sydney',
     code: 'syd'
   }
@@ -53,17 +54,39 @@ export default class LocationSelect extends Component {
 
   render() {
     return (
-      <div>
-        <LocationDropdown
-           locations={locations}
-           update={(val) => this.updateLocation(val)}
-          />
+      <StyLocationSelect>
+        <StyDropdownSection>
+          <p>Where are you now?</p>
+          <LocationDropdown
+             locations={locations}
+             update={(val) => this.updateLocation(val)}
+            />
+        </StyDropdownSection>
+        <StyDropdownSection >
+          <p>Where do you want to VPN into?</p>
         <LocationDropdown
            locations={locations}
            update={(val) => this.updateDestination(val)}
           />
-      </div>
+      </StyDropdownSection>
+    </StyLocationSelect>
     );
   }
 
 }
+
+const StyLocationSelect = styled.section`
+ overflow: hidden;
+`
+
+const StyDropdownSection = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  p{
+    width: 165px;
+    font-family: "Calibre-light", Fallback, sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+  }
+`

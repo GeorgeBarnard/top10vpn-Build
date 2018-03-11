@@ -8,6 +8,7 @@ import LocationSelect from './LocationSelect'
 import TestPeriod from './TestPeriod'
 import MakeCall from './MakeCall'
 import ViewResults from './ViewResults'
+import ChangeSelection from './ChangeSelection'
 
 export default class Main extends Component {
   constructor(props) {
@@ -64,7 +65,8 @@ export default class Main extends Component {
     var self = this;
     this.setState({
       loading: true,
-      searchToggled: true
+      searchToggled: true,
+      response: ''
     })
     axios.get(request)
      .then(function (response) {
@@ -84,7 +86,8 @@ export default class Main extends Component {
        })
     });
   }
-  close(){
+
+  changeSelection(){
     this.setState({
       searchToggled: false
     })
@@ -165,8 +168,13 @@ testPeriodSwitch = (val) => {
            ,
            {testPeriodDisplay}
          </Destination>
+         <ChangeSelection
+            toggle={this.state.searchToggled}
+            changeSelection={() => this.changeSelection()}
+          />
         <SelectSection toggled={this.state.searchToggled}>
           <LocationSelect
+            toggled={this.state.searchToggled}
             updateLocation={(val, name) => this.updateLocation(val, 1)}
             updateDestination={(val, name) => this.updateLocation(val, 2)}
            />
@@ -174,12 +182,13 @@ testPeriodSwitch = (val) => {
              currentTestPeriod={this.state.currentTestPeriod ? this.state.currentTestPeriod : ''}
              updateTestPeriod={(val) => this.updateTestPeriod(val)}
             />
+            <MakeCall
+              // active={active}
+              makeCall={() => this.makeCall()}
+              close={() => this.close()}
+              searchToggled={this.state.searchToggled}
+            />
         </SelectSection>
-        <MakeCall
-          // active={active}
-          makeCall={() => this.makeCall()}
-          close={() => this.close()}
-        />
         <ViewResults
           loading={this.state.loading ? this.state.loading : ''}
           response={this.state.response ? this.state.response : ''}
@@ -193,9 +202,9 @@ testPeriodSwitch = (val) => {
 
 const StyMain = styled.section`
   width: 100%;
+  min-height: 100vh;
   background-color: white;
-  overflow-x: hidden;
-  padding: 0 10px;
+  padding: 0 10px 60px 10px;
   box-sizing: border-box;
 `
 const StyTitle = styled.h1`
@@ -216,6 +225,7 @@ const Destination = styled.section`
 `
 const SelectSection = styled.section`
   overflow: hidden;
-  height: ${props => props.toggled ? '0px' : '200px'};
-  transition: 0.2s ease-in;
+  position: relative;
+  height: ${props => props.toggled ? '0' : '265px'};
+  transition: 0.3s linear;
 `

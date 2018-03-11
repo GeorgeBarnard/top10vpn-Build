@@ -33,7 +33,7 @@ export default class App extends Component {
 const StyOuter = styled.main`
   width: 100%;
   margin: 0 auto;
-  background-color: pink;
+  background-color: white;
   position: relative;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 `
