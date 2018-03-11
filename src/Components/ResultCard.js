@@ -191,6 +191,7 @@ const StyBottomInner = styled.section`
       border: none;
       vertical-align: -3px;
       transform: scale(1);
+      background-color: rgba(255, 255, 255, 0);
       &:focus{
         outline: none;
       }

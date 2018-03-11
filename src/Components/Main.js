@@ -20,6 +20,7 @@ export default class Main extends Component {
         currentDestinationName: 'Paris',
         currentTestPeriod: '0',
         response: '',
+        originalResponse: '',
         searchToggled: false
       };
     }
@@ -72,11 +73,14 @@ export default class Main extends Component {
      .then(function (response) {
        console.log(response);
        Object.values(response.data).forEach(function(obj) { obj.testPeriod = self.state.currentTestPeriod; });
-       self.setState({response: Object.values(response.data)})
+       self.setState({
+         response: Object.values(response.data),
+         originalResponse: Object.values(response.data)
+       })
        self.setState({
          loading: false
        })
-       self.props.openSort();
+       self.props.openSort(Object.values(response.data));
      })
     .catch(function (error) {
        alert('Api Call Error: Please try again shortly')
@@ -115,13 +119,42 @@ export default class Main extends Component {
     console.log('Error: Invalid sort selection')
   }
 
+  resetFilter = () => {
+    var original = this.state.originalResponse
+    this.setState({
+      response: original
+    })
+  }
+
+  filterBy = (value, type) => {
+    var filteredResponse = this.state.originalResponse
+    var newArray
+    type && type === 1 ?
+    newArray = filteredResponse.filter(function (el) {
+      return el.dlMbps <= value[1] &&
+             el.dlMbps >= value[0]
+    })
+    : type && type === 2 ?
+    newArray = filteredResponse.filter(function (el) {
+      return el.pingAvg <= value[1] &&
+             el.pingAvg >= value[0]
+    })
+    : '';
+
+    newArray.length >= 1 ?
+    this.setState({
+      response: newArray
+    })
+    : console.log('No Results')
+
+  }
+
   compareValues = (key, order='asc') => {
   return function(a, b) {
     if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
       // property doesn't exist on either object
         return 0;
     }
-
     const varA = (typeof a[key] === 'string') ?
       a[key].toUpperCase() : a[key];
     const varB = (typeof b[key] === 'string') ?

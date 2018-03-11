@@ -15,7 +15,7 @@ export default class App extends Component {
         <Header />
         <Main
           ref={(instance) => { this.main = instance; }}
-          openSort={() => this.sortBy.showSort()}
+          openSort={(response) => this.sortBy.showSort(response)}
           notify={(val) => this.notification.trigger(val)}
         />
         <Notify
@@ -24,6 +24,8 @@ export default class App extends Component {
         <SortBy
           ref={(instance) => { this.sortBy = instance; }}
           sortBy={(type) => this.main.sortBy(type)}
+          sendFilter={(value, type) => this.main.filterBy(value, type)}
+          resetFilter={() => this.main.resetFilter()}
         />
       </StyOuter>
     );
