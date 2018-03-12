@@ -1,7 +1,7 @@
-Component tree for Top10VPN test build.
+### Component tree for Top10VPN test build.
 
-Overview:
-
+### Overview:
+```
   Html Root
     ↓
     App
@@ -23,9 +23,10 @@ Overview:
           ResultCard
         FilterSort
       Notify
+  ```
 
-Details:
-
+### Details:
+```
   App -
     Contain the application and top level state
 
@@ -64,11 +65,13 @@ Details:
 
               Notify -
                 Display the notifications sent by the application
+```
 
+### Tech Stack :
 
-Tech Stack :
-
+```
 React
 Styled-components
 Axios
 Range.js
+```
