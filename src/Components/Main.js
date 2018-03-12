@@ -141,7 +141,7 @@ export default class Main extends Component {
     (
      sortedResponse = this.state.response,
      this.setState({
-       response: Object.values(sortedResponse).sort(this.compareValues('pingAvg', 'desc'))
+       response: Object.values(sortedResponse).sort(this.compareValues('pingAvg'))
      }),
      console.log(this.state.response)
    )
