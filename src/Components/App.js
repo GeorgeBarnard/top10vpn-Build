@@ -32,6 +32,9 @@ export default class App extends Component {
   }
 }
 
+// Styled Components
+// TODO: Move to Seperate file
+
 const StyOuter = styled.main`
   width: 100%;
   margin: 0 auto;

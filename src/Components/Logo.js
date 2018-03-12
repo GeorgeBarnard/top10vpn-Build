@@ -11,6 +11,9 @@ export default class Logo extends Component {
   }
 }
 
+// Styled Components
+// TODO: Move to Seperate file
+
 const StyLogo = styled.img`
   width: ${props => props.width}
 `

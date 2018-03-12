@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import LocationDropdown from './LocationDropdown'
 import styled from 'styled-components'
 
+//  Array of objects containing all the information needed for locations,
+// TODO: Import this array, left in the Component for context
 
 const locations =[
   {
@@ -38,6 +40,7 @@ const locations =[
 
 export default class LocationSelect extends Component {
 
+  // Update the users current location
   updateLocation(val){
     val ?
     this.props.updateLocation(val)
@@ -45,6 +48,7 @@ export default class LocationSelect extends Component {
     console.log('Error: Invalid Location')
   }
 
+  // Update the destination the user would like to VPN into
   updateDestination(val){
     val ?
     this.props.updateDestination(val)
@@ -72,8 +76,10 @@ export default class LocationSelect extends Component {
     </StyLocationSelect>
     );
   }
-
 }
+
+// Styled Components
+// TODO: Move to Seperate file
 
 const StyLocationSelect = styled.section`
  overflow: hidden;

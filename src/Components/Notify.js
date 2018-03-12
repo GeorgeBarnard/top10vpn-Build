@@ -10,6 +10,7 @@ export default class Notify extends Component {
     }
   }
 
+  // Trigger a notification, remove the notification after 2 seconds
   trigger = (val) => {
     var self = this
     val ?
@@ -26,6 +27,8 @@ export default class Notify extends Component {
     console.log('Error: invalid notification message')
   }
 
+  // Take shortcode passed by the notification request and return the appropriate notification
+  // TODO: this could be own component as larger list of notifications would be build over time
   messageSwitch = (val) => {
     var message
     val && val === 'Dld' ?
@@ -34,14 +37,12 @@ export default class Notify extends Component {
     message = <p>Ping speed:<br />Average Ping speed recorded in our tests</p>
     :
     (message = '',
-     console.log('Error: invalid notifiction value')
+     console.log('Error: invalid notification value')
     )
-
     return message;
   }
 
   render() {
-
     return (
       <StyNotification active={this.state.active != null ? this.state.active : false}>
         {this.state.message ? this.messageSwitch(this.state.message) : ''}
@@ -50,6 +51,9 @@ export default class Notify extends Component {
   }
 
 }
+
+// Styled Components
+// TODO: Move to Seperate file
 
 const StyNotification = styled.section`
   position: fixed;

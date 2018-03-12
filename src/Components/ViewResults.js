@@ -5,7 +5,7 @@ import ResultCard from './ResultCard'
 import LoadingGif from '../img/load.gif'
 
 
-class ViewResults extends Component {
+export default class ViewResults extends Component {
 
   render() {
 
@@ -43,7 +43,8 @@ class ViewResults extends Component {
 
 }
 
-export default ViewResults;
+// Styled Components
+// TODO: Move to Seperate file
 
 const StyOuter = styled.section`
   padding: 10px 0;

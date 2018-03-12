@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 export default class LocationDropdown extends Component {
 
+  //Send selected location to props
   onChange(event){
     event ?
     this.props.update(event.target.value) :
@@ -12,6 +13,7 @@ export default class LocationDropdown extends Component {
   render() {
     let chooselocations
     var locations
+    // Populate the location dropdown from the supplied Json array
     this.props.locations ?
     (locations = this.props.locations,
       chooselocations = Object.keys(locations).map(result =>
@@ -31,6 +33,9 @@ export default class LocationDropdown extends Component {
     );
   }
 }
+
+// Styled Components
+// TODO: Move to Seperate file
 
 const StySelect = styled.select`
   appearance: none;

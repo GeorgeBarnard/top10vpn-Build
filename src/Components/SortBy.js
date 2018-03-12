@@ -3,7 +3,9 @@ import styled from 'styled-components'
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
-class SortBy extends Component {
+// TODO: Break this component into 2 sections for sort and filter, left as one for readability/time 
+
+export default class SortBy extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,6 +19,7 @@ class SortBy extends Component {
     }
   }
 
+  // this function is called by main once the JSON data has been passed down, it works out the initial min and max parameters of the sliders
   showSort = (response) => {
     var upper = Math.max.apply(Math, response.map(function(o){return o.dlMbps;}))
     var lower = Math.min.apply(Math, response.map(function(o){return o.dlMbps;}))
@@ -52,6 +55,7 @@ class SortBy extends Component {
     })
   }
 
+  // trigger sort by function on main
   sortBy(type){
     this.props.sortBy(type)
     this.setState({
@@ -59,53 +63,44 @@ class SortBy extends Component {
     })
   }
 
-  // filterBy(type){
-  //   this.props.filterBy(type, this.state.)
-  //   this.setState({
-  //     toggled: false
-  //   })
-  // }
-
-  // Range Slider
-
-  onLowerBoundChange(e){
-    this.setState({ lowerBound: e.target.value });
-  }
-  onUpperBoundChange(e){
-    this.setState({ upperBound: e.target.value });
-  }
-
+  // update filter values for the download speed filter
   speedSliderChange = (value) => {
-    console.log(value);
+    this.state.filterSlider && this.state.filterSlider == 1 ?
     this.setState({
       value,
       upperBound: value[1],
       lowerBound: value[0]
-    });
+    })
+    :
+    console.log('invalid switch value')
   }
 
+  // update filter values for the ping speed filter
   pingSliderChange = (value) => {
-    console.log(value);
+    this.state.filterSlider && this.state.filterSlider == 2 ?
     this.setState({
       pingValue: value,
       pingUpperBound: value[1],
       pingLowerBound: value[0]
-    });
+    })
+    :
+    console.log('invalid switch value')
   }
 
+  // Handle submission of the filters, passes the new parameters up to main so it can filter the current results
   handleApply = (value) => {
     this.state.filterSlider && this.state.filterSlider === 1 ?
     this.props.sendFilter(this.state.value, 1)
     : this.state.filterSlider && this.state.filterSlider === 2 ?
     this.props.sendFilter(this.state.pingValue, 2)
     : console.log('Error: invalid filter selection')
-
     this.setState({
       toggled: false,
       filterToggle: false
     })
   }
 
+  // Return the filters to their original values when the reset button is pressed.
   resetFilter = () => {
     this.props.resetFilter()
     this.showSort(this.state.currentResponse)
@@ -115,9 +110,10 @@ class SortBy extends Component {
     })
   }
 
+  // Control the opening/closing of the slider change windows
   sliderState(val){
     this.state.filterToggle && val != this.state.filterSlider ?
-    (console.log('top'),
+    (this.props.resetFilter(),
     this.setState({
       filterSlider: val,
       filterToggle: true
@@ -133,12 +129,14 @@ class SortBy extends Component {
     })
   }
 
-
+  //  Function to round results to 1 decimal place.
   round = (value, precision) => {
     var multiplier = Math.pow(10, precision || 0);
     return Math.round(value * multiplier) / multiplier;
   }
 
+  //  Decide which of the sliders to show.
+  // TODO: Compress this function, duplicated for prototyping speed.
   showSlider = (value) => {
     var returnSlider
     value && value  === 1 ?
@@ -179,14 +177,16 @@ class SortBy extends Component {
        )
     : returnSlider = ''
 
-
     return returnSlider;
   }
+
+
 
   render() {
     var selectedOptions
     var filterSlider
 
+    // Es6 switch to decide wether show show to sort or filter by options
     const newSwitch = (type) => ({
       1:
         (<section>
@@ -201,10 +201,10 @@ class SortBy extends Component {
         </section>)
     })[type]
 
+    // Check if type exists, then display the correct type
     this.state.type ?
-    (selectedOptions = newSwitch(this.state.type),
-    console.log('selected'))
-    : '' ;
+    selectedOptions = newSwitch(this.state.type)
+    : selectedOptions = ''
 
     return (
       <StyOuter showSort={this.state.showSort}>
@@ -222,7 +222,8 @@ class SortBy extends Component {
 
 }
 
-export default SortBy;
+// Styled Components
+// TODO: Move to Seperate file
 
 const StyOuter = styled.section`
   width: 375px;

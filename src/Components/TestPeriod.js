@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 export default class TestPeriod extends Component {
 
+  // Update the users test period based on selection and return result to main 
   selectValue(val){
     val ?
     this.props.updateTestPeriod(val)
@@ -22,6 +23,9 @@ export default class TestPeriod extends Component {
   }
 
 }
+
+// Styled Components
+// TODO: Move to Seperate file
 
 const Outer = styled.section`
   background-color: rgb(179, 222, 141);

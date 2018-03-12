@@ -14,6 +14,9 @@ export default class Menu extends Component {
 
 }
 
+// Styled Components
+// TODO: Move to Seperate file
+
 const StyMenu = styled.section`
   margin-left: auto;
   p{

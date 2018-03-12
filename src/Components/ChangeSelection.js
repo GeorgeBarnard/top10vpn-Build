@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import styled from 'styled-components'
 
 export default class ChangeSelection extends Component {
-
   render() {
-    return (
-      <ChangeLink onClick={() => this.props.changeSelection()} toggle={this.props.toggle}>Change</ChangeLink>
-    );
-  }
-
+      return (
+        <ChangeLink onClick={() => this.props.changeSelection()} toggle={this.props.toggle}>Change</ChangeLink>
+      );
+    }
 }
+
+// Styled Components
+// TODO: Move to Seperate file
 
 const ChangeLink = styled.p`
   text-decoration: underline;

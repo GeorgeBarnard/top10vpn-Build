@@ -5,24 +5,23 @@ import downArrow from '../img/downArrow.svg'
 
 export default class MakeCall extends Component {
 
+  // Trigger the search function on main
   makeCall(){
     this.props.makeCall()
-  }
-
-  closeButton(){
-    this.props.close()
   }
 
   render() {
     return (
       <StyOuter >
         <ResultsButton onClick={() => this.makeCall()}><img src={downArrow}></img>View Results</ResultsButton>
-        {/* <button onClick={() => this.closeButton()}>Close</button> */}
       </StyOuter>
     );
   }
 
 }
+
+// Styled Components
+// TODO: Move to Seperate file
 
 const StyOuter = styled.section`
   margin: 10px auto;

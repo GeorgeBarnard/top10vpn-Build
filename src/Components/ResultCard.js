@@ -10,7 +10,7 @@ import PureVPN from '../img/purevpn.png'
 
 import Info from '../img/info-icon.svg'
 
-class ResultCard extends Component {
+export default class ResultCard extends Component {
 
   notify(type){
     switch(type){
@@ -25,27 +25,8 @@ class ResultCard extends Component {
     }
   }
 
-  round = (value, precision) => {
-    var multiplier = Math.pow(10, precision || 0);
-    return Math.round(value * multiplier) / multiplier;
-  }
-
-  testPeriod = (values) => {
-    var timePeriod
-
-      values === '0' ?
-      timePeriod = 'Right now'
-      : values === '7' ?
-      timePeriod = 'Last 7 days'
-      : values === '14' ?
-      timePeriod = 'Last 14 days'
-      : timePeriod = ''
-
-      return timePeriod
-  }
-
+  // Calculate and return date and test period based upon the users selected test period
   testDate = (values) => {
-
     var testDate
     var date = new Date();
     var current = new Date(date.getTime());
@@ -70,6 +51,8 @@ class ResultCard extends Component {
       return testDate
   }
 
+
+  // Return correct image based upon the VPN name
   imageSwitch = (val) => {
     var img
 
@@ -89,9 +72,28 @@ class ResultCard extends Component {
     return img;
   }
 
+  //  Return correct text for test period based upon users selected test period
+  testPeriod = (values) => {
+      var timePeriod
+        values === '0' ?
+        timePeriod = 'Right now'
+        : values === '7' ?
+        timePeriod = 'Last 7 days'
+        : values === '14' ?
+        timePeriod = 'Last 14 days'
+        : timePeriod = ''
+
+        return timePeriod
+    }
+
+  // Round the results to one decimal place
+  round = (value, precision) => {
+    var multiplier = Math.pow(10, precision || 0);
+    return Math.round(value * multiplier) / multiplier;
+  }
+
   render() {
     var values
-
 
     this.props.response ?
     values = this.props.response
@@ -124,7 +126,8 @@ class ResultCard extends Component {
 
 }
 
-export default ResultCard;
+// Styled Components
+// TODO: Move to Seperate file
 
 const StyCard = styled.section`
   width: 365;

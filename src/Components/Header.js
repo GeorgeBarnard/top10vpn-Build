@@ -19,6 +19,9 @@ export default class Header extends Component {
 
 }
 
+// Styled Components
+// TODO: Move to Seperate file
+
 const StyHeader = styled.header`
   width: 100%;
   background-color: white;

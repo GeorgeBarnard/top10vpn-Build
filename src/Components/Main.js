@@ -3,12 +3,13 @@ import styled from 'styled-components'
 import axios from 'axios'
 
 // Component Imports
-
 import LocationSelect from './LocationSelect'
 import TestPeriod from './TestPeriod'
 import MakeCall from './MakeCall'
 import ViewResults from './ViewResults'
 import ChangeSelection from './ChangeSelection'
+
+// TODO: Move functions to Seperate worker file, left in one place for readability
 
 export default class Main extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ export default class Main extends Component {
       };
     }
 
+  // Handle the current location selection options, return value to state
   updateLocation(val, type){
     var newval = JSON.parse(val)
     // TODO: Change this to Es6 switch
@@ -52,6 +54,7 @@ export default class Main extends Component {
     }
   }
 
+  // Handle the current test period, return value to state
   updateTestPeriod(val){
     val ?
     this.setState({
@@ -60,6 +63,7 @@ export default class Main extends Component {
     console.log('Error: invalid test period')
   }
 
+  // Make the Api call, returns a response that can be mutated by filters, and an originalResponse that contains the original information for resets
   makeCall(){
     var state = this.state
     var request = 'https://perfapi.perf-data-api.top10vpn-data.prod.top10vpn.co/sdata/results?src='+ state.currentLocation +'&dest='+ state.currentLocation +'&tpd='+ state.currentTestPeriod +''
@@ -91,64 +95,14 @@ export default class Main extends Component {
     });
   }
 
+  // Function that re-opens the search bars once collapsed in order to make a new selection
   changeSelection(){
     this.setState({
       searchToggled: false
     })
   }
 
-  sortBy = (sortType) => {
-    var sortedResponse
-    sortType && sortType === 1 ?
-     (
-      sortedResponse = this.state.response,
-      this.setState({
-        response: Object.values(sortedResponse).sort(this.compareValues('dlMbps', 'desc'))
-      }),
-      console.log(this.state.response)
-    )
-    : sortType && sortType === 2 ?
-    (
-     sortedResponse = this.state.response,
-     this.setState({
-       response: Object.values(sortedResponse).sort(this.compareValues('pingAvg', 'desc'))
-     }),
-     console.log(this.state.response)
-   )
-    :
-    console.log('Error: Invalid sort selection')
-  }
-
-  resetFilter = () => {
-    var original = this.state.originalResponse
-    this.setState({
-      response: original
-    })
-  }
-
-  filterBy = (value, type) => {
-    var filteredResponse = this.state.originalResponse
-    var newArray
-    type && type === 1 ?
-    newArray = filteredResponse.filter(function (el) {
-      return el.dlMbps <= value[1] &&
-             el.dlMbps >= value[0]
-    })
-    : type && type === 2 ?
-    newArray = filteredResponse.filter(function (el) {
-      return el.pingAvg <= value[1] &&
-             el.pingAvg >= value[0]
-    })
-    : '';
-
-    newArray.length >= 1 ?
-    this.setState({
-      response: newArray
-    })
-    : console.log('No Results')
-
-  }
-
+  // Function that allows sorting by specific value in an array of objects
   compareValues = (key, order='asc') => {
   return function(a, b) {
     if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
@@ -172,25 +126,79 @@ export default class Main extends Component {
   };
 }
 
-testPeriodSwitch = (val) => {
-  var test = val
-  var testPeriod
-  test && test === '0' ?
-  testPeriod = ' right now'
-  : test && test === '7' ?
-  testPeriod = ' last 7 days'
-  : test && test === '14' ?
-  testPeriod = ' last 14 days'
-  :
-  (testPeriod = '',
-  console.log('Error: invalid test period'))
-  return testPeriod;
-}
+  // Function that sorts the response by given parameters recieved from the sortBy Component
+  sortBy = (sortType) => {
+    var sortedResponse
+    sortType && sortType === 1 ?
+     (
+      sortedResponse = this.state.response,
+      this.setState({
+        response: Object.values(sortedResponse).sort(this.compareValues('dlMbps', 'desc'))
+      }),
+      console.log(this.state.response)
+    )
+    : sortType && sortType === 2 ?
+    (
+     sortedResponse = this.state.response,
+     this.setState({
+       response: Object.values(sortedResponse).sort(this.compareValues('pingAvg', 'desc'))
+     }),
+     console.log(this.state.response)
+   )
+    :
+    console.log('Error: Invalid sort selection')
+  }
+
+  // Set the response back to the original response when triggered by the sortBy component
+  resetFilter = () => {
+    var original = this.state.originalResponse
+    this.setState({
+      response: original
+    })
+  }
+
+  // Filter the response based upon the values returned from sliders in the sortBy component
+  filterBy = (value, type) => {
+    var filteredResponse = this.state.originalResponse
+    var newArray
+    type && type === 1 ?
+    newArray = filteredResponse.filter(function (el) {
+      return el.dlMbps <= value[1] &&
+             el.dlMbps >= value[0]
+    })
+    : type && type === 2 ?
+    newArray = filteredResponse.filter(function (el) {
+      return el.pingAvg <= value[1] &&
+             el.pingAvg >= value[0]
+    })
+    : '';
+    newArray.length >= 1 ?
+    this.setState({
+      response: newArray
+    })
+    : console.log('No Results')
+  }
+
+
+  // Change values on the test period display
+  testPeriodSwitch = (val) => {
+    var test = val
+    var testPeriod
+    test && test === '0' ?
+    testPeriod = ' right now'
+    : test && test === '7' ?
+    testPeriod = ' last 7 days'
+    : test && test === '14' ?
+    testPeriod = ' last 14 days'
+    :
+    (testPeriod = '',
+    console.log('Error: invalid test period'))
+    return testPeriod;
+  }
 
 
   render() {
     var testPeriodDisplay = this.testPeriodSwitch(this.state.currentTestPeriod)
-
     return (
       <StyMain>
         <StyTitle>VPN Speed Test</StyTitle>
@@ -216,7 +224,6 @@ testPeriodSwitch = (val) => {
              updateTestPeriod={(val) => this.updateTestPeriod(val)}
             />
             <MakeCall
-              // active={active}
               makeCall={() => this.makeCall()}
               close={() => this.close()}
               searchToggled={this.state.searchToggled}
@@ -230,8 +237,10 @@ testPeriodSwitch = (val) => {
       </StyMain>
     );
   }
-
 }
+
+// Styled Components
+// TODO: Move to Seperate file
 
 const StyMain = styled.section`
   width: 100%;

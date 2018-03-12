@@ -3,6 +3,8 @@
 
 Component tree for Top10VPN test build.
 
+Overview:
+
 Html Root
   ↓
   App
@@ -17,54 +19,54 @@ Html Root
         ↓
         LocationDropdown
       TestPeriod
+      MakeCall
+      changeSelection
       ViewResults
         ↓
         ResultCard
       FilterSort
-        ↓
-        FilterBy
-        SortBy
     Notify
 
-
+Details:
 
 App -
   Contain the application and top level state
 
-Header -
-  the header element of the page, contains Logo and Menu toggle
+    Header -
+      the header element of the page, contains Logo and Menu toggle
 
-Main -
-  Core functionality of the application screen,
-  holds all important app state, makes the calls and
-  distributes the information to child components
+        Main -
+          Core functionality of the application screen,
+          Here the call is made to the API based upon inputs passed to it.
+          Main also distributes the response information to child components for manipulation
 
-LocationSelect -
-  User selects where they would like to run the application from
+            LocationSelect -
+              User selects where they would like to run the application from and where they
+              would like to VPN into.
 
-LocationDropdown -
-  Shared Component to select either the location or destination values
+                LocationDropdown -
+                  Shared Component to select either the location or destination values
 
-TestPeriod -
-  Select the time period to test, pass the data up to main, where it is added as the final piece of the api call
+            TestPeriod -
+              Select the time period to test, pass the data up to main, where it is added to the the api call
 
-ViewResults -
-  Section that displays the results returned by the api
+            MakeCall -
+              Button that triggers the call within main component
 
-ResultCard -
-  The Individual result for each of the VPN provider results
+            changeSelection -
+              Allow user to go back and change their original selection
 
-FilterSort -
-  Section that allows user to filter or sort the results
+            ViewResults -
+              Component that displays the results returned by the api
 
-FilterBy -
-  Filter the results Section
+                ResultCard -
+                  The Individual result for each of the VPN provider results
 
-SortBy -
-  Sort the results Section
+            FilterSort -
+              Section that allows user to filter or sort the results
 
-Notify -
-  Display the notifications sent by the application
+            Notify -
+              Display the notifications sent by the application
 
 
 Tech Stack :
@@ -72,3 +74,4 @@ Tech Stack :
 React
 Styled-components
 Axios
+Range.js
