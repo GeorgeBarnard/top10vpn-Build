@@ -2,68 +2,68 @@ Component tree for Top10VPN test build.
 
 Overview:
 
-Html Root
-  ↓
-  App
+  Html Root
     ↓
-    Header
+    App
       ↓
-      Logo
-      Menu
-    Main
-      ↓
-      LocationSelect
+      Header
         ↓
-        LocationDropdown
-      TestPeriod
-      MakeCall
-      changeSelection
-      ViewResults
+        Logo
+        Menu
+      Main
         ↓
-        ResultCard
-      FilterSort
-    Notify
+        LocationSelect
+          ↓
+          LocationDropdown
+        TestPeriod
+        MakeCall
+        changeSelection
+        ViewResults
+          ↓
+          ResultCard
+        FilterSort
+      Notify
 
 Details:
 
-App -
-  Contain the application and top level state
+  App -
+    Contain the application and top level state
 
-    Header -
-      the header element of the page, contains Logo and Menu toggle
+      Header -
+        the header element of the page, contains Logo and Menu toggle
 
-        Main -
-          Core functionality of the application screen,
-          Here the call is made to the API based upon inputs passed to it.
-          Main also distributes the response information to child components for manipulation
+          Main -
+            Core functionality of the application screen,
+            Here the call is made to the API based upon inputs passed to it.
+            Main also distributes the response information to child components for manipulation
 
-            LocationSelect -
-              User selects where they would like to run the application from and where they
-              would like to VPN into.
+              LocationSelect -
+                User selects where they would like to run the application from and where they
+                would like to VPN into.
 
-                LocationDropdown -
-                  Shared Component to select either the location or destination values
+                  LocationDropdown -
+                    Shared Component to select either the location or destination values
 
-            TestPeriod -
-              Select the time period to test, pass the data up to main, where it is added to the the api call
+              TestPeriod -
+                Select the time period to test, pass the data up to main, where it is added to the the api call
 
-            MakeCall -
-              Button that triggers the call within main component
+              MakeCall -
+                Button that triggers the call within main component
 
-            changeSelection -
-              Allow user to go back and change their original selection
+              changeSelection -
+                Allow user to go back and change their original selection
 
-            ViewResults -
-              Component that displays the results returned by the api
+              ViewResults -
+                Component that displays the results returned by the api
 
-                ResultCard -
-                  The Individual result for each of the VPN provider results
+                  ResultCard -
+                    The Individual result for each of the VPN provider results
 
-            FilterSort -
-              Section that allows user to filter or sort the results
+              FilterSort -
+                Section that allows user to filter or sort the results
 
-            Notify -
-              Display the notifications sent by the application
+              Notify -
+                Display the notifications sent by the application
 
 
 Tech Stack :
